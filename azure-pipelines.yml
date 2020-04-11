@@ -18,3 +18,7 @@ steps:
 - script: dotnet pack FodyPropertyChangedSuppressor/FodyPropertyChangedSuppressor.csproj -c $(buildConfiguration) -p:NuspecFile=build/FodyPropertyChangedSuppressor.nuspec
   displayName: 'dotnet pack $(buildConfiguration)'
 
+- task: CopyFiles@2
+  inputs:
+    Contents: '**/*.nupkg'
+    TargetFolder: '$(build.artifactstagingdirectory)'
