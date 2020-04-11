@@ -7,7 +7,7 @@ trigger:
 - master
 
 pool:
-  vmImage: 'windows-latest'
+  vmImage: 'ubuntu-latest'
 
 variables:
   buildConfiguration: 'Release'
@@ -16,5 +16,5 @@ steps:
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
 - script: dotnet pack .\FodyPropertyChangedSuppressor\FodyPropertyChangedSuppressor.csproj -c $(buildConfiguration) -p:NuspecFile=build/FodyPropertyChangedSuppressor.nuspec
-  displayName: 'dotnet build $(buildConfiguration)'
+  displayName: 'dotnet pack $(buildConfiguration)'
 
