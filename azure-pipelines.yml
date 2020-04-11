@@ -20,3 +20,4 @@ steps:
     command: 'pack'
     packagesToPack: 'FodyPropertyChangedSuppressor/FodyPropertyChangedSuppressor.csproj'
     versioningScheme: 'off'
+    buildProperties: '-p:NuspecFile=build/FodyPropertyChangedSuppressor.nuspec'
