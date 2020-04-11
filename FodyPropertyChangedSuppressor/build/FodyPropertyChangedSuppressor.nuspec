@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>FodyPropertyChangedSuppressor</id>
+    <version>0.0.1</version>
+    <title>FodyPropertyChangedSuppressor</title>
+    <authors>Victor Irzak</authors>
+    <owners>Victor Irzak</owners>
+    <language>en-US</language>
+    <license type="expression">Apache-2.0</license>
+    <projectUrl>https://github.com/virzak/FodyPropertyChangedSuppressor</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Suppresses On_PropertyName_Changed</description>
+    <summary>Suppresses On_PropertyName_Changed</summary>
+    <releaseNotes>First attempt</releaseNotes>
+    <copyright>Copyright © 2020 FodyPropertyChangedSuppressor contributors</copyright>
+    <tags>Suppresses On_PropertyName_Changed Fody PropertyChanged</tags>
+  </metadata>
+  <files>
+    <file src="../bin/Release/netstandard2.0/FodyPropertyChangedSuppressor.dll" target="analyzers/cs" />
+    <file src="install.ps1" target="tools" />
+    <file src="uninstall.ps1" target="tools" />
+  </files>
+</package>
