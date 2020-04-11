@@ -15,8 +15,6 @@ variables:
 steps:
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'pack'
-    packagesToPack: 'FodyPropertyChangedSuppressor/FodyPropertyChangedSuppressor.csproj;FodyPropertyChangedSuppressor/build/FodyPropertyChangedSuppressor.nuspec'
-    versioningScheme: 'off'
+- script: dotnet pack .\FodyPropertyChangedSuppressor\FodyPropertyChangedSuppressor.csproj -c $(buildConfiguration) -p:NuspecFile=build/FodyPropertyChangedSuppressor.nuspec
+  displayName: 'dotnet build $(buildConfiguration)'
+
