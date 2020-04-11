@@ -18,6 +18,5 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'pack'
-    packagesToPack: 'FodyPropertyChangedSuppressor/FodyPropertyChangedSuppressor.csproj'
+    packagesToPack: 'FodyPropertyChangedSuppressor/FodyPropertyChangedSuppressor.csproj;FodyPropertyChangedSuppressor/build/FodyPropertyChangedSuppressor.nuspec'
     versioningScheme: 'off'
-    buildProperties: '-p:NuspecFile=build/FodyPropertyChangedSuppressor.nuspec'
