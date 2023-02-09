@@ -16,7 +16,7 @@ namespace FodyPropertyChangedSuppress
             new SuppressionDescriptor("SUPP2953", "IDE0051", "OnChanged suppression")
         }.ToImmutableArray();
 
-        readonly Regex OnChangedPattern = new Regex("^On(.+)Changed$", RegexOptions.Compiled);
+        readonly Regex OnChangedPattern = new("^On(.+)Changed$", RegexOptions.Compiled);
 
         public override void ReportSuppressions(SuppressionAnalysisContext context)
         {
@@ -28,7 +28,7 @@ namespace FodyPropertyChangedSuppress
                     continue;
 
                 var methodNode = methodSourceTree.GetRoot(context.CancellationToken).FindNode(diagnostic.Location.SourceSpan);
-                if (methodNode == null || !(methodNode is MethodDeclarationSyntax methodDec))
+                if (methodNode is not MethodDeclarationSyntax methodDec)
                     continue;
 
                 // Ensure the method has no parameters
@@ -50,14 +50,14 @@ namespace FodyPropertyChangedSuppress
                 var classModel = context.GetSemanticModel(classNode.SyntaxTree);
                 var classDeclaredSymbol = classModel.GetDeclaredSymbol(classNode, context.CancellationToken);
 
-                if (!(classDeclaredSymbol is INamedTypeSymbol classDeclaringSymbol))
+                if (classDeclaredSymbol is not INamedTypeSymbol classDeclaringSymbol)
                     continue;
 
                 var isINotifyPropertyChanged = IsDerivedFromInterface(classDeclaringSymbol, "INotifyPropertyChanged");
 
                 // Check if parent class has AddINotifyPropertyChangedInterfaceAttribute
                 bool hasAddINotifyPropertyChangedInterface = classDeclaringSymbol.GetAttributes()
-                    .Any(a => a.AttributeClass.Name.Equals("AddINotifyPropertyChangedInterfaceAttribute", StringComparison.InvariantCulture));
+                    .Any(a => a.AttributeClass is { Name: "AddINotifyPropertyChangedInterfaceAttribute" });
 
                 if (!hasAddINotifyPropertyChangedInterface && !isINotifyPropertyChanged)
                     continue;
@@ -83,6 +83,10 @@ namespace FodyPropertyChangedSuppress
                     {
                         members = declaringStruct.Members;
                     }
+                    else if (locnode is RecordDeclarationSyntax recordDeclaration)
+                    {
+                        members = recordDeclaration.Members;
+                    }
                     else
                         continue;
 
@@ -90,7 +94,7 @@ namespace FodyPropertyChangedSuppress
                     foreach (var member in members)
                     {
                         // Bail out if not a property
-                        if (!(member is PropertyDeclarationSyntax property))
+                        if (member is not PropertyDeclarationSyntax property)
                             continue;
 
                         // Check to see if property name is what's between On and Changed
